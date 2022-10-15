@@ -152,30 +152,13 @@
                                 </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gc4-6L-foW">
-                                <rect key="frame" x="8" y="91" width="374" height="519"/>
+                                <rect key="frame" x="8" y="91" width="374" height="719"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F82-QB-pQn">
-                                <rect key="frame" x="0.0" y="610" width="390" height="200"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="m9e-rH-cOJ"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="m9e-rH-cOJ"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="m9e-rH-cOJ"/>
-                                    </mask>
-                                </variation>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D6a-tn-2zJ">
-                                <rect key="frame" x="322" y="99" width="60" height="60"/>
+                                <rect key="frame" x="290" y="710" width="60" height="60"/>
                                 <color key="backgroundColor" systemColor="linkColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="CBg-lu-utL"/>
@@ -191,57 +174,56 @@
                         <viewLayoutGuide key="safeArea" id="GDD-pB-Kn6"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="F82-QB-pQn" firstAttribute="leading" secondItem="GDD-pB-Kn6" secondAttribute="leading" id="151-GT-mW2"/>
-                            <constraint firstItem="F82-QB-pQn" firstAttribute="top" secondItem="gc4-6L-foW" secondAttribute="bottom" id="ITl-el-A66"/>
+                            <constraint firstItem="GDD-pB-Kn6" firstAttribute="bottom" secondItem="D6a-tn-2zJ" secondAttribute="bottom" constant="40" id="7a2-nv-y3f"/>
                             <constraint firstItem="GDD-pB-Kn6" firstAttribute="trailing" secondItem="gc4-6L-foW" secondAttribute="trailing" constant="8" id="NcL-Df-Hwf"/>
-                            <constraint firstItem="GDD-pB-Kn6" firstAttribute="trailing" secondItem="F82-QB-pQn" secondAttribute="trailing" id="R2e-zG-9O2"/>
                             <constraint firstItem="q7e-ly-W4Q" firstAttribute="top" secondItem="GDD-pB-Kn6" secondAttribute="top" id="UGt-sU-Jed"/>
                             <constraint firstItem="gc4-6L-foW" firstAttribute="top" secondItem="GDD-pB-Kn6" secondAttribute="top" id="Ybf-Bn-U5v"/>
-                            <constraint firstItem="F82-QB-pQn" firstAttribute="top" secondItem="GDD-pB-Kn6" secondAttribute="top" id="gmU-Hg-2M1"/>
-                            <constraint firstItem="GDD-pB-Kn6" firstAttribute="bottom" secondItem="F82-QB-pQn" secondAttribute="bottom" id="n2x-SK-LQN"/>
+                            <constraint firstItem="GDD-pB-Kn6" firstAttribute="bottom" secondItem="gc4-6L-foW" secondAttribute="bottom" id="jZn-rW-OA7"/>
                             <constraint firstItem="GDD-pB-Kn6" firstAttribute="trailing" secondItem="q7e-ly-W4Q" secondAttribute="trailing" id="sSh-FT-RAH"/>
                             <constraint firstItem="gc4-6L-foW" firstAttribute="leading" secondItem="GDD-pB-Kn6" secondAttribute="leading" constant="8" id="u6I-ug-f9c"/>
-                            <constraint firstItem="F82-QB-pQn" firstAttribute="top" secondItem="GDD-pB-Kn6" secondAttribute="top" id="vzr-M1-qhu"/>
+                            <constraint firstItem="GDD-pB-Kn6" firstAttribute="trailing" secondItem="D6a-tn-2zJ" secondAttribute="trailing" constant="40" id="zQr-RL-2pA"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="gc4-6L-foW"/>
-                                <exclude reference="D6a-tn-2zJ"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="ITl-el-A66"/>
-                                <exclude reference="gmU-Hg-2M1"/>
-                                <exclude reference="vzr-M1-qhu"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=compact-widthClass=regular">
-                            <mask key="subviews">
-                                <include reference="D6a-tn-2zJ"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="gmU-Hg-2M1"/>
-                                <include reference="vzr-M1-qhu"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="gc4-6L-foW"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="ITl-el-A66"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="backgroundImageView" destination="q7e-ly-W4Q" id="2eP-PP-aik"/>
                         <outlet property="bobodyTextViewdyLabel" destination="gc4-6L-foW" id="MEc-2H-MS3"/>
-                        <outlet property="playerView" destination="F82-QB-pQn" id="66l-bT-7Zz"/>
                         <outlet property="videoControlButton" destination="D6a-tn-2zJ" id="A2g-6j-Xe6"/>
+                        <segue destination="9VF-to-Dbf" kind="presentation" identifier="ShowVLCPlayerViewController" modalPresentationStyle="fullScreen" id="Ein-aO-BX4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D8i-vE-Dd0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1509.2307692307693" y="437.91469194312793"/>
+        </scene>
+        <!--Player View Conttroller-->
+        <scene sceneID="qRi-Uj-TmG">
+            <objects>
+                <viewController id="9VF-to-Dbf" customClass="VLCPlayerViewConttroller" customModule="grabber" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="s7m-Q0-fY7">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JaX-o3-H0U">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="VAZ-gC-kYn"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="JaX-o3-H0U" firstAttribute="leading" secondItem="VAZ-gC-kYn" secondAttribute="leading" id="0XM-Xq-kmU"/>
+                            <constraint firstItem="VAZ-gC-kYn" firstAttribute="trailing" secondItem="JaX-o3-H0U" secondAttribute="trailing" id="5ro-Jt-iZJ"/>
+                            <constraint firstItem="JaX-o3-H0U" firstAttribute="top" secondItem="s7m-Q0-fY7" secondAttribute="top" id="X3i-OZ-8Rr"/>
+                            <constraint firstAttribute="bottom" secondItem="JaX-o3-H0U" secondAttribute="bottom" id="fDV-qg-Sni"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="playerView" destination="JaX-o3-H0U" id="NPw-it-GN6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ycM-dh-uxj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2759.7156398104266" y="436.92307692307691"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TLN-2T-b4I">

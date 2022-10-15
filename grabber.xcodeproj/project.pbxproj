@@ -22,6 +22,7 @@
 		B8935CBC28F8913A00FCD27C /* RutrackerApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8935CBB28F8913A00FCD27C /* RutrackerApiManager.swift */; };
 		B8D8850328F86F7000E704D8 /* Rutracker_org_HtmlParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8850228F86F7000E704D8 /* Rutracker_org_HtmlParser.swift */; };
 		B8D8850528F86FDD00E704D8 /* TorrentPreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8850428F86FDD00E704D8 /* TorrentPreviewModel.swift */; };
+		E6A06E4828FB4DF500BF59D8 /* VLCPlayerViewConttroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A06E4728FB4DF500BF59D8 /* VLCPlayerViewConttroller.swift */; };
 		FBEF943A7D3312F16C8AE13F /* Pods_grabber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F7388E8B295BC6228EDE231 /* Pods_grabber.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 		B8D8850428F86FDD00E704D8 /* TorrentPreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentPreviewModel.swift; sourceTree = "<group>"; };
 		BBFD6B9D00C42F617ECB4C9C /* Pods-grabber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabber.release.xcconfig"; path = "Pods/Target Support Files/Pods-grabber/Pods-grabber.release.xcconfig"; sourceTree = "<group>"; };
 		D8B297A7D2FA76F9CE78114A /* Pods-grabber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-grabber/Pods-grabber.debug.xcconfig"; sourceTree = "<group>"; };
+		E6A06E4728FB4DF500BF59D8 /* VLCPlayerViewConttroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCPlayerViewConttroller.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,17 +103,14 @@
 		855A6B662027A8710014E28B /* grabber */ = {
 			isa = PBXGroup;
 			children = (
+				E6A06E4528FB4D4D00BF59D8 /* Resources */,
+				E6A06E4428FB4D2300BF59D8 /* Presentation */,
 				B8935CBA28F882FA00FCD27C /* Networking */,
 				B8D8850128F86EF900E704D8 /* HTMLParser */,
 				B8D8850028F86ECF00E704D8 /* Models */,
 				B8710DA228F83A6200D57669 /* Helpers */,
 				855A6B672027A8710014E28B /* AppDelegate.swift */,
-				855A6B692027A8710014E28B /* ViewController.swift */,
-				855A6B7E202F96DA0014E28B /* TorrentDetailViewController.swift */,
 				855A6B8220339D280014E28B /* grabber-Bridging-Header.m */,
-				855A6B6B2027A8710014E28B /* Main.storyboard */,
-				855A6B712027A8710014E28B /* Assets.xcassets */,
-				855A6B732027A8710014E28B /* LaunchScreen.storyboard */,
 				855A6B762027A8710014E28B /* Info.plist */,
 				855A6B6E2027A8710014E28B /* grabber.xcdatamodeld */,
 				855A6B8120339D280014E28B /* grabber-Bridging-Header.h */,
@@ -152,6 +151,34 @@
 				B8D8850228F86F7000E704D8 /* Rutracker_org_HtmlParser.swift */,
 			);
 			path = HTMLParser;
+			sourceTree = "<group>";
+		};
+		E6A06E4428FB4D2300BF59D8 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				E6A06E4628FB4DC100BF59D8 /* VLCPlayerViewConttroller */,
+				855A6B692027A8710014E28B /* ViewController.swift */,
+				855A6B7E202F96DA0014E28B /* TorrentDetailViewController.swift */,
+				855A6B732027A8710014E28B /* LaunchScreen.storyboard */,
+				855A6B6B2027A8710014E28B /* Main.storyboard */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		E6A06E4528FB4D4D00BF59D8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				855A6B712027A8710014E28B /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E6A06E4628FB4DC100BF59D8 /* VLCPlayerViewConttroller */ = {
+			isa = PBXGroup;
+			children = (
+				E6A06E4728FB4DF500BF59D8 /* VLCPlayerViewConttroller.swift */,
+			);
+			path = VLCPlayerViewConttroller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,6 +317,7 @@
 				855A6B7F202F96DA0014E28B /* TorrentDetailViewController.swift in Sources */,
 				855A6B8320339D280014E28B /* grabber-Bridging-Header.m in Sources */,
 				B8710DA428F83A7200D57669 /* DetectUrlFromString.swift in Sources */,
+				E6A06E4828FB4DF500BF59D8 /* VLCPlayerViewConttroller.swift in Sources */,
 				B8D8850528F86FDD00E704D8 /* TorrentPreviewModel.swift in Sources */,
 				855A6B702027A8710014E28B /* grabber.xcdatamodeld in Sources */,
 			);

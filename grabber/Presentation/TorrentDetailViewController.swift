@@ -12,7 +12,6 @@ import MobileVLCKit
 
 class TorrentDetailViewController: UIViewController {
     @IBOutlet weak var bobodyTextViewdyLabel: UITextView!
-    @IBOutlet weak var playerView: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
     
     @IBOutlet weak var videoControlButton: UIButton!
@@ -22,7 +21,10 @@ class TorrentDetailViewController: UIViewController {
     
     private let api: RutrackerApiManager = RutrackerApiManager()
     private let streamer: PTTorrentStreamer = PTTorrentStreamer.shared()
-    private let mediaplayer = VLCMediaPlayer()
+    
+    deinit {
+        streamer.cancelStreamingAndDeleteData(true)
+    }
     
     
     func updateUI(info: TorrentDetailModel) {
@@ -49,30 +51,22 @@ class TorrentDetailViewController: UIViewController {
         func fetchFile() {
             api.getTorrentFile(topicId: id) { [weak self] result in
                 guard let strongSelf = self else { return }
-//                DispatchQueue.main.async {
-                    do {
-                        let fileManager = FileManager.default
-                        let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-                        let fileURL = documentDirectory.appendingPathComponent(strongSelf.id)
-                        let torrentFile = try result.get()
-                        try torrentFile.write(to: fileURL)
-                        strongSelf.torrentFileUrl = fileURL
-                        
-                        strongSelf.didTapVideoControlButton(UIButton())
-                        
-                    } catch {
-                        print(error)
-                    }
-//                }
+                do {
+                    let fileManager = FileManager.default
+                    let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                    let fileURL = documentDirectory.appendingPathComponent(strongSelf.id)
+                    let torrentFile = try result.get()
+                    try torrentFile.write(to: fileURL)
+                    strongSelf.torrentFileUrl = fileURL
+                    
+                } catch {
+                    print(error)
+                }
             }
         }
         
         fetchFile()
-        mediaplayer.delegate = self
     }
-    
-    
-    
     
     func play(fileUrl: URL) {
         streamer.startStreaming(
@@ -81,6 +75,8 @@ class TorrentDetailViewController: UIViewController {
                 print(status)
             },
             readyToPlay: { [weak self] (videoFileURL, videoFilePath) in
+                self?.performSegue(withIdentifier: "ShowVLCPlayerViewController", sender: videoFileURL)
+                
                 print(videoFileURL)
                 print(videoFilePath)
             },
@@ -119,25 +115,13 @@ class TorrentDetailViewController: UIViewController {
         play(fileUrl: url)
     }
     
-}
-
-extension TorrentDetailViewController: VLCMediaPlayerDelegate {
-    
-    func mediaPlayerStateChanged(_ aNotification: Notification!) {
-        print("mediaPlayerStateChanged")
-    }
-    
-    func mediaPlayerTimeChanged(_ aNotification: Notification!) {
-        print("mediaPlayerTimeChanged")
-        aNotification.debugDescription
-    }
-    
-    func mediaPlayerTitleChanged(_ aNotification: Notification!) {
-        print("mediaPlayerTitleChanged")
-    }
-    
-    func mediaPlayerChapterChanged(_ aNotification: Notification!) {
-        print("mediaPlayerChapterChanged")
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowVLCPlayerViewController", let controller = segue.destination as? VLCPlayerViewConttroller {
+            controller.videoFileURL = sender as? URL
+            controller.onDismiss = { [weak self] in
+                self?.streamer.cancelStreamingAndDeleteData(true)
+            }
+        }
     }
 }
 

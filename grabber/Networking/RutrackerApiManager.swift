@@ -49,7 +49,7 @@ struct RutrackerSearchParameters {
     
     enum TorrentType: String, CaseIterable {
         case _Зарубежное_кино = "7"
-        case Фильмы_2021_2022  = "1950"
+        case Фильмы_2021_2022 = "1950"
         case _HD_Video = "2198"
         case UHD_Video = "1457"
         case _Мультфильмы = "4"

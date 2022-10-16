@@ -33,15 +33,16 @@ struct ApiServiceToken {
 
 enum ApiServiceError: Error {
     case badUrl
+    case afError(AFError)
 }
 
 class ApiServiceImpl {
-    private let sessionManager: SessionManager
+    private let sessionManager: Session
     private let baseUrl: URL
     private let defaultHeaders: [String : String]
     
     init(
-        sessionManager: SessionManager,
+        sessionManager: Session,
         baseUrl: URL,
         defaultHeaders: [String : String]
     ) {
@@ -51,11 +52,11 @@ class ApiServiceImpl {
     }
     
     @discardableResult
-    func makeStringRequest(token: ApiServiceToken, completion: @escaping (Result<String>) -> Void) -> Request? {
+    func makeStringRequest(token: ApiServiceToken, completion: @escaping (Result<String, Error>) -> Void) -> Request? {
         do {
             let request = try makeRequest(token: token)
             return request.responseString { response in
-                completion(response.result)
+//                completion(response.mapError({ ApiServiceError.afError($0) }))
             }
         } catch {
             completion(.failure(error))
@@ -64,11 +65,11 @@ class ApiServiceImpl {
     }
     
     @discardableResult
-    func makeDataRequest(token: ApiServiceToken, completion: @escaping (Result<Data>) -> Void) -> Request? {
+    func makeDataRequest(token: ApiServiceToken, completion: @escaping (Result<Data, Error>) -> Void) -> Request? {
         do {
             let request = try makeRequest(token: token)
             return request.responseData { response in
-                completion(response.result)
+//                completion(response.result)
             }
         } catch {
             completion(.failure(error))
@@ -91,7 +92,7 @@ class ApiServiceImpl {
             method: token.method,
             parameters: token.parameters,
             encoding: URLEncoding.httpBody,
-            headers: mergedHeaders
+            headers: HTTPHeaders(mergedHeaders)
         )
     }
 }
@@ -133,7 +134,7 @@ private extension ApiServiceImpl {
 
 class ApiServiceFactory {
     static func rutracker(
-        sessionManager: SessionManager = ApiServiceFactory.sessionManager()
+        sessionManager: Session = ApiServiceFactory.sessionManager()
     ) -> ApiServiceImpl {
         return ApiServiceImpl(
             sessionManager: sessionManager,
@@ -146,11 +147,11 @@ class ApiServiceFactory {
         )
     }
     
-    private static func sessionManager() -> SessionManager {
+    private static func sessionManager() -> Session {
         let cache = URLCache(memoryCapacity: 4 * 1024 * 1024, diskCapacity: 20 * 1024 * 1024, diskPath: nil)
         let config = URLSessionConfiguration.default
         config.requestCachePolicy = .useProtocolCachePolicy
         config.urlCache = cache
-        return SessionManager(configuration: config)
+        return Session(configuration: config)
     }
 }

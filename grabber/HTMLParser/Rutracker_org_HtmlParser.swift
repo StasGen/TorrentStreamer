@@ -9,6 +9,8 @@
 import Foundation
 import Kanna
 
+struct Rutracker_org_HtmlParserError: Error {}
+
 class Rutracker_org_HtmlParser {
     
     func trackers(html: String) -> [TorrentPreviewModel] {
@@ -48,7 +50,7 @@ class Rutracker_org_HtmlParser {
         return models
     }
     
-    func trackerDetail(html: String) -> TorrentDetailModel? {
+    func trackerDetail(html: String) throws -> TorrentDetailModel {
         if let doc = try? Kanna.HTML(html: html, encoding: String.Encoding.utf8) {
             let body = doc.xpath("//*[@class='post_body']").first
             
@@ -68,6 +70,6 @@ class Rutracker_org_HtmlParser {
                 }()
             )
         }
-        return nil
+        throw Rutracker_org_HtmlParserError()
     }
 }

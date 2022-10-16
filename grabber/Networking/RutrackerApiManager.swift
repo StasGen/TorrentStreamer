@@ -125,14 +125,16 @@ class RutrackerApiManager {
 //                ).toDic(),
             method: .post
         )
-        apiService.makeStringRequest(token: token) { [htmlParser] result in
-            if let html = result.value {
+        
+        apiService.makeStringRequest(token: token, completion: { [htmlParser] result in
+            do {
+                let html = try result.get()
                 let trackers = htmlParser.trackers(html: html)
                 completion(.success(trackers))
-            } else {
-                completion(.failure(NSError()))
+            } catch {
+                completion(.failure(error))
             }
-        }
+        })
     }
     
     func getTrackerInfo(id: String, completion: @escaping (Result<TorrentDetailModel, Error>) -> Void) {
@@ -141,16 +143,15 @@ class RutrackerApiManager {
             queryItems: ["t" : id],
             method: .post
         )
-        apiService.makeStringRequest(token: token) { [htmlParser] result in
-            if
-                let html = result.value,
-                let tracker = htmlParser.trackerDetail(html: html)
-            {
+        apiService.makeStringRequest(token: token, completion: { [htmlParser] result in
+            do {
+                let html = try result.get()
+                let tracker = try htmlParser.trackerDetail(html: html)
                 completion(.success(tracker))
-            } else {
-                completion(.failure(NSError()))
+            } catch {
+                completion(.failure(error))
             }
-        }
+        })
     }
     
     func getTorrentFile(topicId: String, completion: @escaping (Swift.Result<Data, Error>) -> Void) {
@@ -159,14 +160,14 @@ class RutrackerApiManager {
             queryItems: ["t" : topicId],
             method: .post
         )
-        apiService.makeDataRequest(token: token) { result in
+        apiService.makeDataRequest(token: token, completion: { result in
             do {
-                let data: Data = try result.unwrap()
+                let data: Data = try result.get()
                 completion(.success(data))
             } catch {
                 completion(.failure(error))
             }
-        }
+        })
     }
     
     

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,7 +15,6 @@
 		855A6B752027A8710014E28B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 855A6B732027A8710014E28B /* LaunchScreen.storyboard */; };
 		855A6B7D2028FFBF0014E28B /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855A6B7C2028FFBF0014E28B /* ApiService.swift */; };
 		855A6B7F202F96DA0014E28B /* TorrentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855A6B7E202F96DA0014E28B /* TorrentDetailViewController.swift */; };
-		855A6B8320339D280014E28B /* grabber-Bridging-Header.m in Sources */ = {isa = PBXBuildFile; fileRef = 855A6B8220339D280014E28B /* grabber-Bridging-Header.m */; };
 		B84BCF7B28F8B02C00353BA2 /* TorrentDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84BCF7A28F8B02C00353BA2 /* TorrentDetailModel.swift */; };
 		B84BCF7D28F9A10900353BA2 /* ImageViewDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84BCF7C28F9A10900353BA2 /* ImageViewDownloader.swift */; };
 		B8710DA428F83A7200D57669 /* DetectUrlFromString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8710DA328F83A7200D57669 /* DetectUrlFromString.swift */; };
@@ -23,6 +22,7 @@
 		B8D8850328F86F7000E704D8 /* Rutracker_org_HtmlParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8850228F86F7000E704D8 /* Rutracker_org_HtmlParser.swift */; };
 		B8D8850528F86FDD00E704D8 /* TorrentPreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8850428F86FDD00E704D8 /* TorrentPreviewModel.swift */; };
 		E6A06E4828FB4DF500BF59D8 /* VLCPlayerViewConttroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A06E4728FB4DF500BF59D8 /* VLCPlayerViewConttroller.swift */; };
+		E6A06E4B28FC0B3300BF59D8 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E6A06E4A28FC0B3300BF59D8 /* Alamofire */; };
 		FBEF943A7D3312F16C8AE13F /* Pods_grabber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F7388E8B295BC6228EDE231 /* Pods_grabber.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,8 +38,6 @@
 		855A6B762027A8710014E28B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		855A6B7C2028FFBF0014E28B /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		855A6B7E202F96DA0014E28B /* TorrentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentDetailViewController.swift; sourceTree = "<group>"; };
-		855A6B8120339D280014E28B /* grabber-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "grabber-Bridging-Header.h"; sourceTree = "<group>"; };
-		855A6B8220339D280014E28B /* grabber-Bridging-Header.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "grabber-Bridging-Header.m"; sourceTree = "<group>"; };
 		B84BCF7A28F8B02C00353BA2 /* TorrentDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentDetailModel.swift; sourceTree = "<group>"; };
 		B84BCF7C28F9A10900353BA2 /* ImageViewDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewDownloader.swift; sourceTree = "<group>"; };
 		B8710DA328F83A7200D57669 /* DetectUrlFromString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectUrlFromString.swift; sourceTree = "<group>"; };
@@ -58,6 +56,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBEF943A7D3312F16C8AE13F /* Pods_grabber.framework in Frameworks */,
+				E6A06E4B28FC0B3300BF59D8 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,10 +109,8 @@
 				B8D8850028F86ECF00E704D8 /* Models */,
 				B8710DA228F83A6200D57669 /* Helpers */,
 				855A6B672027A8710014E28B /* AppDelegate.swift */,
-				855A6B8220339D280014E28B /* grabber-Bridging-Header.m */,
 				855A6B762027A8710014E28B /* Info.plist */,
 				855A6B6E2027A8710014E28B /* grabber.xcdatamodeld */,
-				855A6B8120339D280014E28B /* grabber-Bridging-Header.h */,
 			);
 			path = grabber;
 			sourceTree = "<group>";
@@ -200,6 +197,7 @@
 			);
 			name = grabber;
 			packageProductDependencies = (
+				E6A06E4A28FC0B3300BF59D8 /* Alamofire */,
 			);
 			productName = grabber;
 			productReference = 855A6B642027A8710014E28B /* grabber.app */;
@@ -232,6 +230,7 @@
 			);
 			mainGroup = 855A6B5B2027A8710014E28B;
 			packageReferences = (
+				E6A06E4928FC0B3300BF59D8 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 855A6B652027A8710014E28B /* Products */;
 			projectDirPath = "";
@@ -281,15 +280,14 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-grabber/Pods-grabber-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
 				"${BUILT_PRODUCTS_DIR}/Kanna/Kanna.framework",
 				"${PODS_ROOT}/PopcornTorrent/Build/iOS/PopcornTorrent.framework",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/MobileVLCKit/MobileVLCKit.framework/MobileVLCKit",
+				"",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kanna.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopcornTorrent.framework",
@@ -315,7 +313,6 @@
 				B8D8850328F86F7000E704D8 /* Rutracker_org_HtmlParser.swift in Sources */,
 				855A6B7D2028FFBF0014E28B /* ApiService.swift in Sources */,
 				855A6B7F202F96DA0014E28B /* TorrentDetailViewController.swift in Sources */,
-				855A6B8320339D280014E28B /* grabber-Bridging-Header.m in Sources */,
 				B8710DA428F83A7200D57669 /* DetectUrlFromString.swift in Sources */,
 				E6A06E4828FB4DF500BF59D8 /* VLCPlayerViewConttroller.swift in Sources */,
 				B8D8850528F86FDD00E704D8 /* TorrentPreviewModel.swift in Sources */,
@@ -453,7 +450,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -468,12 +466,15 @@
 				DEVELOPMENT_TEAM = 7MF8BB6LXN;
 				INFOPLIST_FILE = grabber/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = mmm.grabber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "grabber/grabber-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -488,11 +489,14 @@
 				DEVELOPMENT_TEAM = 7MF8BB6LXN;
 				INFOPLIST_FILE = grabber/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = mmm.grabber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "grabber/grabber-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -519,6 +523,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E6A06E4928FC0B3300BF59D8 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E6A06E4A28FC0B3300BF59D8 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E6A06E4928FC0B3300BF59D8 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		855A6B6E2027A8710014E28B /* grabber.xcdatamodeld */ = {

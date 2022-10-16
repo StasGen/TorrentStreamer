@@ -14,7 +14,6 @@ end
 
 target 'grabber' do
     pods
-    pod 'Alamofire'
-#    pod 'Kanna', :git => 'https://github.com/tid-kijyun/Kanna'
+    pod 'Kanna', :git => 'https://github.com/tid-kijyun/Kanna'
 end
 

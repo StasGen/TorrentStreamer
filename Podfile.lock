@@ -15,7 +15,7 @@ DEPENDENCIES:
   - PopcornTorrent
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/CocoaPods/Specs:
     - Alamofire
     - GCDWebServer
     - MobileVLCKit

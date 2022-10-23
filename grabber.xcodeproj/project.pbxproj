@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		855A6B682027A8710014E28B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855A6B672027A8710014E28B /* AppDelegate.swift */; };
-		855A6B6A2027A8710014E28B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855A6B692027A8710014E28B /* ViewController.swift */; };
+		855A6B6A2027A8710014E28B /* TorrentSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855A6B692027A8710014E28B /* TorrentSearchListViewController.swift */; };
 		855A6B6D2027A8710014E28B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 855A6B6B2027A8710014E28B /* Main.storyboard */; };
 		855A6B702027A8710014E28B /* grabber.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 855A6B6E2027A8710014E28B /* grabber.xcdatamodeld */; };
 		855A6B722027A8710014E28B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 855A6B712027A8710014E28B /* Assets.xcassets */; };
@@ -32,7 +32,7 @@
 		3F7388E8B295BC6228EDE231 /* Pods_grabber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_grabber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		855A6B642027A8710014E28B /* grabber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = grabber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		855A6B672027A8710014E28B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		855A6B692027A8710014E28B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		855A6B692027A8710014E28B /* TorrentSearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentSearchListViewController.swift; sourceTree = "<group>"; };
 		855A6B6C2027A8710014E28B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		855A6B6F2027A8710014E28B /* grabber.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = grabber.xcdatamodel; sourceTree = "<group>"; };
 		855A6B712027A8710014E28B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				E6A06E4628FB4DC100BF59D8 /* VLCPlayerViewConttroller */,
-				855A6B692027A8710014E28B /* ViewController.swift */,
+				855A6B692027A8710014E28B /* TorrentSearchListViewController.swift */,
 				855A6B7E202F96DA0014E28B /* TorrentDetailViewController.swift */,
 				855A6B732027A8710014E28B /* LaunchScreen.storyboard */,
 				855A6B6B2027A8710014E28B /* Main.storyboard */,
@@ -327,7 +327,7 @@
 			files = (
 				B84BCF7D28F9A10900353BA2 /* ImageViewDownloader.swift in Sources */,
 				B8935CBC28F8913A00FCD27C /* RutrackerApiManager.swift in Sources */,
-				855A6B6A2027A8710014E28B /* ViewController.swift in Sources */,
+				855A6B6A2027A8710014E28B /* TorrentSearchListViewController.swift in Sources */,
 				B84BCF7B28F8B02C00353BA2 /* TorrentDetailModel.swift in Sources */,
 				855A6B682027A8710014E28B /* AppDelegate.swift in Sources */,
 				E6A06E5328FC7B5000BF59D8 /* ApiServiceError.swift in Sources */,

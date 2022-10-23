@@ -9,7 +9,7 @@
 import UIKit
 import Kanna
 
-class ViewController: UIViewController {
+class TorrentSearchListViewController: UIViewController {
     struct Props {
         struct Torrent {
             let name: String
@@ -122,7 +122,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension TorrentSearchListViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -140,15 +140,15 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let id = props.torrents[indexPath.row].ref {
             performSegue(withIdentifier: "ShowConcertInfoSegue", sender: id)
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
-extension ViewController: UISearchBarDelegate {
+extension TorrentSearchListViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         fetchContent(searchText: searchBar.text)

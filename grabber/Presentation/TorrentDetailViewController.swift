@@ -17,18 +17,20 @@ class TorrentDetailViewController: UIViewController {
         case readyForStream
         case downloadTorrentFile
         case startStream(URL)
+        case needToSelectFileIndex([String])
+        case streamingAndShowPlayer(videoFileURL: URL)
         case failed(State, Error)
     }
     
     @IBOutlet weak var bobodyTextViewdyLabel: UITextView!
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-    
     @IBOutlet weak var videoControlButton: UIButton!
     
     var id: String!
     var torrentFileUrl: URL?
     var info: TorrentDetailModel?
+    var fileIndexForPlay: Int?
     
     private let api: RutrackerApiManager = RutrackerApiManager()
     private let streamer: PTTorrentStreamer = PTTorrentStreamer.shared()
@@ -54,7 +56,31 @@ class TorrentDetailViewController: UIViewController {
                     self.fetchFile()
                     
                 case .startStream(let url):
+                    self.activityIndicatorView.isHidden = false
                     self.play(fileUrl: url)
+                    
+                case .needToSelectFileIndex(let files):
+                    self.activityIndicatorView.isHidden = true
+                    self.presentAlert(
+                        title: "Select file to play",
+                        items: files.enumerated().map { i in
+                            (i.element, { _ in
+                                self.fileIndexForPlay = i.offset
+                                if let torrentFileUrl = self.torrentFileUrl {
+                                    self.state = .startStream(torrentFileUrl)
+                                } else {
+                                    self.state = .downloadTorrentFile
+                                }
+                            })
+                        }.filter { !$0.0.hasSuffix(".srt") },
+                        cancel: { _ in
+                            self.state = .readyForStream
+                        }
+                    )
+                    
+                case .streamingAndShowPlayer(videoFileURL: let videoFileURL):
+                    self.activityIndicatorView.isHidden = true
+                    self.performSegue(withIdentifier: "ShowVLCPlayerViewController", sender: videoFileURL)
                 
                 case .failed(let oldState, let error):
                     print(oldState, error)
@@ -117,40 +143,42 @@ class TorrentDetailViewController: UIViewController {
                 print(status)
             },
             readyToPlay: { [weak self] (videoFileURL, videoFilePath) in
-                self?.performSegue(withIdentifier: "ShowVLCPlayerViewController", sender: videoFileURL)
-                
-                print(videoFileURL)
-                print(videoFilePath)
+                if case .needToSelectFileIndex = self?.state {
+                    self?.streamer.cancelStreamingAndDeleteData(true)
+                } else {
+                    self?.state = .streamingAndShowPlayer(videoFileURL: videoFileURL)
+                }
             },
             failure: { [weak self] error in
                 guard let self = self else { return }
                 self.state = .failed(self.state, error)
-            }) { result in
-                print(result)
-
+                
+            }
+        ) { [weak self] result in
+            guard let self = self else { return 0 }
+            print(result)
+            
+            if result.count == 1 {
+                self.fileIndexForPlay = 0
+                return 0
+                
+            } else if let fileIndex = self.fileIndexForPlay {
+                return Int32(fileIndex)
+                
+            } else {
+                self.state = .needToSelectFileIndex(result)
                 return 0
             }
-        
-        
-//        streamer.startStreaming(
-//            fromFileOrMagnetLink: fileUrl.path,
-//            progress: { (status) in
-//                print(status)
-//            },
-//            readyToPlay: { [weak self] (videoFileURL, videoFilePath) in
-//                print(videoFileURL)
-//                print(videoFilePath)
-//
-//                DispatchQueue.main.async {
-//                    guard let self = self else { return }
-//                    self.mediaplayer.drawable = self.playerView
-//                    self.mediaplayer.media = VLCMedia(url: videoFileURL)
-//                    self.mediaplayer.play()
-//                }
-//
-//            }) { (error) in
-//                print(error)
-//            }
+        }
+    }
+    
+    private func presentAlert(title: String, items: [(String, (UIAlertAction)->())], cancel: @escaping (UIAlertAction)->()) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        items.map {
+            UIAlertAction(title: $0.0, style: .default, handler: $0.1)
+        }.forEach(alert.addAction)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: cancel))
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func didTapVideoControlButton(_ sender: UIButton) {

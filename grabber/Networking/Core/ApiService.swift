@@ -72,7 +72,7 @@ class ApiServiceImpl {
         
         var req = URLRequest(url: url)
         req.httpMethod = token.method.rawValue
-        req.headers = .init(mergedHeaders)
+        req.allHTTPHeaderFields = mergedHeaders
         req.httpBody = components?.query?.data(using: .utf8)
         return req
     }

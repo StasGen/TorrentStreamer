@@ -8,7 +8,6 @@
 
 import UIKit
 import Kanna
-import Alamofire
 
 class ViewController: UIViewController {
     struct Props {

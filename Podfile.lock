@@ -1,5 +1,4 @@
 PODS:
-  - Alamofire (4.6.0)
   - GCDWebServer (3.5.4):
     - GCDWebServer/Core (= 3.5.4)
   - GCDWebServer/Core (3.5.4)
@@ -9,14 +8,12 @@ PODS:
     - GCDWebServer (~> 3.5.0)
 
 DEPENDENCIES:
-  - Alamofire
   - Kanna (from `https://github.com/tid-kijyun/Kanna`)
   - MobileVLCKit
   - PopcornTorrent
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs:
-    - Alamofire
     - GCDWebServer
     - MobileVLCKit
   https://github.com/PopcornTimeTV/Specs:
@@ -32,12 +29,11 @@ CHECKOUT OPTIONS:
     :git: https://github.com/tid-kijyun/Kanna
 
 SPEC CHECKSUMS:
-  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   Kanna: 01cfbddc127f5ff0963692f285fcbc8a9d62d234
   MobileVLCKit: c5dd1b0ae933dc9c2348099840e753496dcdd908
   PopcornTorrent: 343ff0e04ba370764a9cf27c35685463f7428b90
 
-PODFILE CHECKSUM: 8a431c0c620919119272bef0663b8189b123cdb1
+PODFILE CHECKSUM: 1dbfce40a7d83a5f130b477ba9e085c90931dc2a
 
 COCOAPODS: 1.11.3

@@ -255,7 +255,7 @@
 			);
 			mainGroup = 855A6B5B2027A8710014E28B;
 			packageReferences = (
-				E6A06E4928FC0B3300BF59D8 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				E6A06E4928FC0B3300BF59D8 /* XCRemoteSwiftPackageReference "Alamofire.git" */,
 			);
 			productRefGroup = 855A6B652027A8710014E28B /* Products */;
 			projectDirPath = "";
@@ -309,7 +309,6 @@
 				"${BUILT_PRODUCTS_DIR}/Kanna/Kanna.framework",
 				"${PODS_ROOT}/PopcornTorrent/Build/iOS/PopcornTorrent.framework",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/MobileVLCKit/MobileVLCKit.framework/MobileVLCKit",
-				"",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -553,7 +552,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E6A06E4928FC0B3300BF59D8 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		E6A06E4928FC0B3300BF59D8 /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -566,7 +565,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		E6A06E4A28FC0B3300BF59D8 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E6A06E4928FC0B3300BF59D8 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = E6A06E4928FC0B3300BF59D8 /* XCRemoteSwiftPackageReference "Alamofire.git" */;
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */

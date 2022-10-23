@@ -53,10 +53,9 @@ class ApiServiceImpl {
     
     // MARK: - Private
     private func buildUrlRequest(token: ApiServiceToken) throws -> URLRequest {
-        var components = URLComponents(url: baseUrl.appendingPathComponent(token.path), resolvingAgainstBaseURL: true)
-        //components?.queryItems = token.queryItems.map { URLQueryItem(name: $0.key, value: $0.value) }
+        let mergedHeaders = defaultHeaders.merging(token.headers, uniquingKeysWith: { (first, _) in first })
         
-        ///
+        var components = URLComponents(url: baseUrl.appendingPathComponent(token.path), resolvingAgainstBaseURL: true)
         let parameterItems: [URLQueryItem] = token.parameters.compactMap {
             if let val = $0.value as? [String] {
                 return URLQueryItem(name: $0.key, value: val.joined(separator: ","))
@@ -67,25 +66,14 @@ class ApiServiceImpl {
         let queryItems = token.queryItems.map { URLQueryItem(name: $0.key, value: $0.value) }
         components?.queryItems = parameterItems + queryItems
         
-        
-        ///
         guard let url = components?.url else {
             throw ApiServiceError.badUrl
         }
         
-        let mergedHeaders = defaultHeaders.merging(token.headers, uniquingKeysWith: { (first, _) in first })
- 
         var req = URLRequest(url: url)
         req.httpMethod = token.method.rawValue
         req.headers = .init(mergedHeaders)
-//        let parameters = token.parameters
-        
-        do {
-            req.httpBody = components?.query?.data(using: .utf8) //try JSONSerialization.data(withJSONObject: parameters, options: [])
-        } catch {
-            throw error
-        }
-        
+        req.httpBody = components?.query?.data(using: .utf8)
         return req
     }
 }

@@ -83,8 +83,8 @@ class TorrentDetailViewController: UIViewController {
                     self.performSegue(withIdentifier: "ShowVLCPlayerViewController", sender: videoFileURL)
                 
                 case .failed(let oldState, let error):
-                    print(oldState, error)
                     self.activityIndicatorView.isHidden = true
+                    self.presentAlert(title: "Error", message: "\(error), for state \(oldState)", items: [])
                 }
             }
         }
@@ -172,12 +172,19 @@ class TorrentDetailViewController: UIViewController {
         }
     }
     
-    private func presentAlert(title: String, items: [(String, (UIAlertAction)->())], cancel: @escaping (UIAlertAction)->()) {
-        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        items.map {
-            UIAlertAction(title: $0.0, style: .default, handler: $0.1)
-        }.forEach(alert.addAction)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: cancel))
+    private func presentAlert(
+        title: String,
+        message: String? = nil,
+        items: [(String, (UIAlertAction)->())],
+        cancel: ((UIAlertAction)->())? = nil
+    ) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        items
+            .map { UIAlertAction(title: $0.0, style: .default, handler: $0.1)}
+            .forEach(alert.addAction)
+        if let cancel = cancel {
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: cancel))
+        }
         present(alert, animated: true, completion: nil)
     }
     

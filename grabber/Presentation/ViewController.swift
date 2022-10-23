@@ -8,7 +8,6 @@
 
 import UIKit
 import Kanna
-import Alamofire
 
 class ViewController: UIViewController {
     struct Props {
@@ -53,8 +52,6 @@ class ViewController: UIViewController {
         }
     }
     
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowConcertInfoSegue", let controller = segue.destination as? TorrentDetailViewController {
             controller.id = sender as? String
@@ -62,20 +59,31 @@ class ViewController: UIViewController {
     }
     
     @IBAction func searchFilterButtonDidTap(_ sender: UIButton) {
+        let updateSearch: (()->()) -> () = { setter in
+            setter()
+            self.searchBarSearchButtonClicked(self.searchBar)
+        }
+        
         if sender == sortTypeButton {
             presentAlert(
                 title: "Sort By",
-                items: RutrackerSearchParameters.SortBy.allCases.map { item in (String(describing: item), props.sortBy == item, { _ in self.props.sortBy = item }) }
+                items: RutrackerSearchParameters.SortBy.allCases.map { item in
+                    (String(describing: item), props.sortBy == item, { _ in updateSearch({ self.props.sortBy = item }) })
+                }
             )
         } else if sender == durationButton {
             presentAlert(
                 title: "Creation Duration",
-                items: RutrackerSearchParameters.CreationDuration.allCases.map { item in (String(describing: item), props.creationDuration == item, { _ in self.props.creationDuration = item }) }
+                items: RutrackerSearchParameters.CreationDuration.allCases.map { item in
+                    (String(describing: item), props.creationDuration == item, { _ in updateSearch({ self.props.creationDuration = item }) })
+                }
             )
         } else if sender == categoryButton {
             presentAlert(
                 title: "Torrent Type",
-                items: RutrackerSearchParameters.TorrentType.allCases.map { item in (String(describing: item), props.torrentType == item, { _ in self.props.torrentType = item }) }
+                items: RutrackerSearchParameters.TorrentType.allCases.map { item in
+                    (String(describing: item), props.torrentType == item, { _ in updateSearch({ self.props.torrentType = item }) })
+                }
             )
         }
     }
@@ -103,7 +111,10 @@ class ViewController: UIViewController {
         ) { [weak self] result in
             do {
                 self?.props.torrents = try result.get().map { Props.Torrent(name: $0.name, kByte: $0.kByte, ref: $0.id) }
-                self?.metalShowTableView.reloadData()
+                
+                DispatchQueue.main.async {
+                    self?.metalShowTableView.reloadData()
+                }
             } catch {
                 print(error)
             }

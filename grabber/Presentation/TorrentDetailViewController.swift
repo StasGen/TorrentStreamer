@@ -41,7 +41,9 @@ class TorrentDetailViewController: UIViewController {
         api.getTrackerInfo(id: id) { [weak self] result in
             do {
                 let info = try result.get()
-                self?.updateUI(info: info)
+                DispatchQueue.main.async {
+                    self?.updateUI(info: info)
+                }
                 
             } catch {
                 

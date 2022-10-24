@@ -25,6 +25,7 @@
 		E6A06E4F28FC587700BF59D8 /* RutrackerSearchParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A06E4E28FC587700BF59D8 /* RutrackerSearchParameters.swift */; };
 		E6A06E5128FC7B3C00BF59D8 /* ApiServiceToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A06E5028FC7B3C00BF59D8 /* ApiServiceToken.swift */; };
 		E6A06E5328FC7B5000BF59D8 /* ApiServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A06E5228FC7B5000BF59D8 /* ApiServiceError.swift */; };
+		E6DC683829066FD80042C446 /* TorrentDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DC683729066FD80042C446 /* TorrentDetailViewModel.swift */; };
 		FBEF943A7D3312F16C8AE13F /* Pods_grabber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F7388E8B295BC6228EDE231 /* Pods_grabber.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		E6A06E4E28FC587700BF59D8 /* RutrackerSearchParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RutrackerSearchParameters.swift; sourceTree = "<group>"; };
 		E6A06E5028FC7B3C00BF59D8 /* ApiServiceToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiServiceToken.swift; sourceTree = "<group>"; };
 		E6A06E5228FC7B5000BF59D8 /* ApiServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiServiceError.swift; sourceTree = "<group>"; };
+		E6DC683729066FD80042C446 /* TorrentDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentDetailViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,9 +158,9 @@
 		E6A06E4428FB4D2300BF59D8 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				E6DC683629066FC60042C446 /* TorrentDetail */,
 				E6A06E4628FB4DC100BF59D8 /* VLCPlayerViewConttroller */,
 				855A6B692027A8710014E28B /* TorrentSearchListViewController.swift */,
-				855A6B7E202F96DA0014E28B /* TorrentDetailViewController.swift */,
 				855A6B732027A8710014E28B /* LaunchScreen.storyboard */,
 				855A6B6B2027A8710014E28B /* Main.storyboard */,
 			);
@@ -199,6 +201,15 @@
 				E6A06E4E28FC587700BF59D8 /* RutrackerSearchParameters.swift */,
 			);
 			path = RutrackerApi;
+			sourceTree = "<group>";
+		};
+		E6DC683629066FC60042C446 /* TorrentDetail */ = {
+			isa = PBXGroup;
+			children = (
+				855A6B7E202F96DA0014E28B /* TorrentDetailViewController.swift */,
+				E6DC683729066FD80042C446 /* TorrentDetailViewModel.swift */,
+			);
+			path = TorrentDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,6 +340,7 @@
 				B8935CBC28F8913A00FCD27C /* RutrackerApiManager.swift in Sources */,
 				855A6B6A2027A8710014E28B /* TorrentSearchListViewController.swift in Sources */,
 				B84BCF7B28F8B02C00353BA2 /* TorrentDetailModel.swift in Sources */,
+				E6DC683829066FD80042C446 /* TorrentDetailViewModel.swift in Sources */,
 				855A6B682027A8710014E28B /* AppDelegate.swift in Sources */,
 				E6A06E5328FC7B5000BF59D8 /* ApiServiceError.swift in Sources */,
 				B8D8850328F86F7000E704D8 /* Rutracker_org_HtmlParser.swift in Sources */,

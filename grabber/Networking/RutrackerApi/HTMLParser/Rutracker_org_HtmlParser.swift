@@ -12,6 +12,12 @@ import Kanna
 struct Rutracker_org_HtmlParserError: Error {}
 
 class Rutracker_org_HtmlParser {
+    let dateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yy"
+        formatter.locale = .init(identifier: "ru_RU")
+        return formatter
+    }()
     
     func trackers(html: String) -> [TorrentPreviewModel] {
         var models: [TorrentPreviewModel] = []
@@ -19,6 +25,21 @@ class Rutracker_org_HtmlParser {
             for object in doc.xpath("//*[@id='tor-tbl']/tbody/tr") {
                 let name = object.at_xpath("td[@class='row4 med tLeft t-title-col tt']/div/a")?.text
                 let id = object.at_xpath("td[@class='row4 med tLeft t-title-col tt']/div/a")?["data-topic_id"]
+                
+                let seeds = object.at_xpath("td[@class='row4 nowrap']")?.text
+                let downloads = object.at_xpath("td[@class='row4 small number-format']")?.text
+                let peers = object.at_xpath("td[@class='row4 leechmed bold']")?.text
+                
+                let createdDate: Date? = {
+                    let createdDateStr = object
+                        .at_xpath("td[@class='row4 small nowrap']")?
+                        .text?
+                        .components(separatedBy: CharacterSet.newlines).joined()
+                    if let createdDateStr = createdDateStr {
+                        return dateFormatter.date(from: createdDateStr)
+                    }
+                    return nil
+                }()
                 
                 
                 let kByte: Double = {
@@ -41,8 +62,12 @@ class Rutracker_org_HtmlParser {
                     name: name ?? "None",
                     kByte: kByte,
                     tags: [],
-                    createdDate: Date(),
-                    liveParams: .init(seeds: 0, downloads: 0, peers: 0)
+                    createdDate: createdDate,
+                    liveParams: .init(
+                        seeds: cleanStringForInt(str: seeds),
+                        downloads: cleanStringForInt(str: downloads),
+                        peers: cleanStringForInt(str: peers)
+                    )
                 )
                 models.append(model)
             }
@@ -71,5 +96,9 @@ class Rutracker_org_HtmlParser {
             )
         }
         throw Rutracker_org_HtmlParserError()
+    }
+    
+    private func cleanStringForInt(str: String?) -> Int {
+        Int(str?.components(separatedBy: CharacterSet.decimalDigits.inverted).joined() ?? "0") ?? 0
     }
 }

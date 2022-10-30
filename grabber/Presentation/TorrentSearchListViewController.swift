@@ -15,6 +15,10 @@ class TorrentSearchListViewController: UIViewController {
             let name: String
             let kByte: Double
             let ref: String?
+            let downloads: Int
+            let seeds: Int
+            let peers: Int
+            let createdDate: Date?
         }
         var torrents: [Torrent]
         var sortBy = RutrackerSearchParameters.SortBy.Количество_сидов
@@ -26,6 +30,12 @@ class TorrentSearchListViewController: UIViewController {
     var api: RutrackerApiManager = RutrackerApiManager()
     
     private let textCellIdentifier = "ShowCell"
+    private let dateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yy"
+        formatter.locale = .init(identifier: "ru_RU")
+        return formatter
+    }()
     
     @IBOutlet var metalShowTableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
@@ -110,7 +120,8 @@ class TorrentSearchListViewController: UIViewController {
             )
         ) { [weak self] result in
             do {
-                self?.props.torrents = try result.get().map { Props.Torrent(name: $0.name, kByte: $0.kByte, ref: $0.id) }
+                self?.props.torrents = try result.get().map {
+                    Props.Torrent(name: $0.name, kByte: $0.kByte, ref: $0.id, downloads: $0.liveParams.downloads, seeds: $0.liveParams.seeds, peers: $0.liveParams.peers, createdDate: $0.createdDate) }
                 
                 DispatchQueue.main.async {
                     self?.metalShowTableView.reloadData()
@@ -133,10 +144,9 @@ extension TorrentSearchListViewController: UITableViewDataSource, UITableViewDel
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: textCellIdentifier, for: indexPath)
-        
-        let row = indexPath.row
-        cell.textLabel?.text = props.torrents[row].name + "\n" + (props.torrents[row].kByte/1000000).description + " GB"
-        
+        guard let torrent = props.torrents[safe: indexPath.row] else { return UITableViewCell() }
+        let createdDate = torrent.createdDate.map(dateFormatter.string) ?? "No date"
+        cell.textLabel?.text = "\(torrent.name) \n\((torrent.kByte/1000000).description)GB D:\(torrent.downloads) S:\(torrent.seeds) P:\(torrent.peers) \(createdDate)"
         return cell
     }
     

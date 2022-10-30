@@ -13,7 +13,7 @@ struct TorrentPreviewModel {
     let name: String
     let kByte: Double
     let tags: [String]
-    let createdDate: Date
+    let createdDate: Date?
     let liveParams: TorrentLiveParams
     
 }

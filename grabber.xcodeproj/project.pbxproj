@@ -21,6 +21,7 @@
 		B8935CBC28F8913A00FCD27C /* RutrackerApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8935CBB28F8913A00FCD27C /* RutrackerApiManager.swift */; };
 		B8D8850328F86F7000E704D8 /* Rutracker_org_HtmlParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8850228F86F7000E704D8 /* Rutracker_org_HtmlParser.swift */; };
 		B8D8850528F86FDD00E704D8 /* TorrentPreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8850428F86FDD00E704D8 /* TorrentPreviewModel.swift */; };
+		E68BF12E290E879900273AFD /* Collection + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68BF12D290E879900273AFD /* Collection + Extension.swift */; };
 		E6A06E4828FB4DF500BF59D8 /* VLCPlayerViewConttroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A06E4728FB4DF500BF59D8 /* VLCPlayerViewConttroller.swift */; };
 		E6A06E4F28FC587700BF59D8 /* RutrackerSearchParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A06E4E28FC587700BF59D8 /* RutrackerSearchParameters.swift */; };
 		E6A06E5128FC7B3C00BF59D8 /* ApiServiceToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A06E5028FC7B3C00BF59D8 /* ApiServiceToken.swift */; };
@@ -49,6 +50,7 @@
 		B8D8850428F86FDD00E704D8 /* TorrentPreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentPreviewModel.swift; sourceTree = "<group>"; };
 		BBFD6B9D00C42F617ECB4C9C /* Pods-grabber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabber.release.xcconfig"; path = "Pods/Target Support Files/Pods-grabber/Pods-grabber.release.xcconfig"; sourceTree = "<group>"; };
 		D8B297A7D2FA76F9CE78114A /* Pods-grabber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-grabber/Pods-grabber.debug.xcconfig"; sourceTree = "<group>"; };
+		E68BF12D290E879900273AFD /* Collection + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection + Extension.swift"; sourceTree = "<group>"; };
 		E6A06E4728FB4DF500BF59D8 /* VLCPlayerViewConttroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCPlayerViewConttroller.swift; sourceTree = "<group>"; };
 		E6A06E4E28FC587700BF59D8 /* RutrackerSearchParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RutrackerSearchParameters.swift; sourceTree = "<group>"; };
 		E6A06E5028FC7B3C00BF59D8 /* ApiServiceToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiServiceToken.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 		855A6B662027A8710014E28B /* grabber */ = {
 			isa = PBXGroup;
 			children = (
+				E68BF12C290E878000273AFD /* Extensions */,
 				E6A06E4528FB4D4D00BF59D8 /* Resources */,
 				E6A06E4428FB4D2300BF59D8 /* Presentation */,
 				B8935CBA28F882FA00FCD27C /* Networking */,
@@ -151,6 +154,14 @@
 				B8D8850228F86F7000E704D8 /* Rutracker_org_HtmlParser.swift */,
 			);
 			path = HTMLParser;
+			sourceTree = "<group>";
+		};
+		E68BF12C290E878000273AFD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E68BF12D290E879900273AFD /* Collection + Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		E6A06E4428FB4D2300BF59D8 /* Presentation */ = {
@@ -333,6 +344,7 @@
 				E6A06E5328FC7B5000BF59D8 /* ApiServiceError.swift in Sources */,
 				B8D8850328F86F7000E704D8 /* Rutracker_org_HtmlParser.swift in Sources */,
 				855A6B7D2028FFBF0014E28B /* ApiService.swift in Sources */,
+				E68BF12E290E879900273AFD /* Collection + Extension.swift in Sources */,
 				855A6B7F202F96DA0014E28B /* TorrentDetailViewController.swift in Sources */,
 				E6A06E4F28FC587700BF59D8 /* RutrackerSearchParameters.swift in Sources */,
 				B8710DA428F83A7200D57669 /* DetectUrlFromString.swift in Sources */,
@@ -491,6 +503,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mmm.grabber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -511,6 +526,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mmm.grabber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

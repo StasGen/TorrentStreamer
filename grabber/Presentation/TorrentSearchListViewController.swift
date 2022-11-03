@@ -63,8 +63,13 @@ class TorrentSearchListViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowConcertInfoSegue", let controller = segue.destination as? TorrentDetailViewController {
-            controller.id = sender as? String
+        if
+            segue.identifier == "ShowConcertInfoSegue",
+            let controller = segue.destination as? TorrentDetailViewController,
+            let torrentId = sender as? String
+        {
+            let viewModel = TorrentDetailViewModel(id: torrentId)
+            controller.viewModel = viewModel
         }
     }
     

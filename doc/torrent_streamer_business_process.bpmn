@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" 
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" 
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" 
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI" 
+                  id="Definitions_1" 
+                  targetNamespace="http://bpmn.io/schema/bpmn">
+  
+  <bpmn:process id="TorrentStreamerProcess" name="TorrentStreamer Business Process" isExecutable="true">
+    
+    <!-- Start Event -->
+    <bpmn:startEvent id="StartEvent_1" name="Пользователь запускает приложение">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    
+    <!-- User Task: Search Input -->
+    <bpmn:userTask id="UserTask_SearchInput" name="Ввод поискового запроса">
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:incoming>Flow_BackToSearch</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:userTask>
+    
+    <!-- Service Task: API Search -->
+    <bpmn:serviceTask id="ServiceTask_APISearch" name="Поиск торрентов через RuTracker API">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    
+    <!-- Service Task: Parse HTML -->
+    <bpmn:serviceTask id="ServiceTask_ParseHTML" name="Парсинг HTML результатов">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    
+    <!-- User Task: Select Torrent -->
+    <bpmn:userTask id="UserTask_SelectTorrent" name="Выбор торрента из списка">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:userTask>
+    
+    <!-- Service Task: Fetch Torrent Details -->
+    <bpmn:serviceTask id="ServiceTask_FetchDetails" name="Получение деталей торрента">
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:serviceTask>
+    
+    <!-- Exclusive Gateway: User Decision -->
+    <bpmn:exclusiveGateway id="Gateway_UserDecision" name="Пользователь решает">
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+      <bpmn:incoming>Flow_ReturnToDetails</bpmn:incoming>
+      <bpmn:outgoing>Flow_7_Play</bpmn:outgoing>
+      <bpmn:outgoing>Flow_8_Back</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    
+    <!-- Service Task: Download Torrent File -->
+    <bpmn:serviceTask id="ServiceTask_DownloadTorrent" name="Скачивание .torrent файла">
+      <bpmn:incoming>Flow_7_Play</bpmn:incoming>
+      <bpmn:outgoing>Flow_9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    
+    <!-- Service Task: Start Streaming -->
+    <bpmn:serviceTask id="ServiceTask_StartStreaming" name="Запуск торрент-стриминга">
+      <bpmn:incoming>Flow_9</bpmn:incoming>
+      <bpmn:incoming>Flow_FileSelected</bpmn:incoming>
+      <bpmn:outgoing>Flow_10</bpmn:outgoing>
+    </bpmn:serviceTask>
+    
+    <!-- Exclusive Gateway: Multiple Files Check -->
+    <bpmn:exclusiveGateway id="Gateway_MultipleFiles" name="Несколько файлов?">
+      <bpmn:incoming>Flow_10</bpmn:incoming>
+      <bpmn:outgoing>Flow_11_Single</bpmn:outgoing>
+      <bpmn:outgoing>Flow_12_Multiple</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    
+    <!-- User Task: Select File -->
+    <bpmn:userTask id="UserTask_SelectFile" name="Выбор файла для воспроизведения">
+      <bpmn:incoming>Flow_12_Multiple</bpmn:incoming>
+      <bpmn:outgoing>Flow_FileSelected</bpmn:outgoing>
+    </bpmn:userTask>
+    
+    <!-- Service Task: Prepare Video Stream -->
+    <bpmn:serviceTask id="ServiceTask_PrepareStream" name="Подготовка видео потока">
+      <bpmn:incoming>Flow_11_Single</bpmn:incoming>
+      <bpmn:outgoing>Flow_13</bpmn:outgoing>
+    </bpmn:serviceTask>
+    
+    <!-- User Task: Video Playback -->
+    <bpmn:userTask id="UserTask_VideoPlayback" name="Воспроизведение видео в VLC плеере">
+      <bpmn:incoming>Flow_13</bpmn:incoming>
+      <bpmn:outgoing>Flow_14</bpmn:outgoing>
+    </bpmn:userTask>
+    
+    <!-- Exclusive Gateway: Playback End -->
+    <bpmn:exclusiveGateway id="Gateway_PlaybackEnd" name="Завершение воспроизведения">
+      <bpmn:incoming>Flow_14</bpmn:incoming>
+      <bpmn:outgoing>Flow_ReturnToDetails</bpmn:outgoing>
+      <bpmn:outgoing>Flow_BackToSearch</bpmn:outgoing>
+      <bpmn:outgoing>Flow_15_Exit</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    
+    <!-- End Event -->
+    <bpmn:endEvent id="EndEvent_1" name="Завершение работы">
+      <bpmn:incoming>Flow_15_Exit</bpmn:incoming>
+      <bpmn:incoming>Flow_8_Back</bpmn:incoming>
+    </bpmn:endEvent>
+    
+    <!-- Error Handling -->
+    <bpmn:boundaryEvent id="BoundaryEvent_APIError" name="Ошибка API" attachedToRef="ServiceTask_APISearch">
+      <bpmn:outgoing>Flow_Error1</bpmn:outgoing>
+      <bpmn:errorEventDefinition />
+    </bpmn:boundaryEvent>
+    
+    <bpmn:boundaryEvent id="BoundaryEvent_StreamError" name="Ошибка стриминга" attachedToRef="ServiceTask_StartStreaming">
+      <bpmn:outgoing>Flow_Error2</bpmn:outgoing>
+      <bpmn:errorEventDefinition />
+    </bpmn:boundaryEvent>
+    
+    <bpmn:userTask id="UserTask_ErrorHandling" name="Обработка ошибки">
+      <bpmn:incoming>Flow_Error1</bpmn:incoming>
+      <bpmn:incoming>Flow_Error2</bpmn:incoming>
+      <bpmn:outgoing>Flow_RetryOrExit</bpmn:outgoing>
+    </bpmn:userTask>
+    
+    <bpmn:exclusiveGateway id="Gateway_RetryOrExit" name="Повторить или выйти?">
+      <bpmn:incoming>Flow_RetryOrExit</bpmn:incoming>
+      <bpmn:outgoing>Flow_Retry</bpmn:outgoing>
+      <bpmn:outgoing>Flow_ExitError</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    
+    <!-- Sequence Flows -->
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="UserTask_SearchInput" />
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="UserTask_SearchInput" targetRef="ServiceTask_APISearch" />
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="ServiceTask_APISearch" targetRef="ServiceTask_ParseHTML" />
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="ServiceTask_ParseHTML" targetRef="UserTask_SelectTorrent" />
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="UserTask_SelectTorrent" targetRef="ServiceTask_FetchDetails" />
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="ServiceTask_FetchDetails" targetRef="Gateway_UserDecision" />
+    <bpmn:sequenceFlow id="Flow_7_Play" name="Воспроизвести" sourceRef="Gateway_UserDecision" targetRef="ServiceTask_DownloadTorrent" />
+    <bpmn:sequenceFlow id="Flow_8_Back" name="Назад к поиску" sourceRef="Gateway_UserDecision" targetRef="EndEvent_1" />
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="ServiceTask_DownloadTorrent" targetRef="ServiceTask_StartStreaming" />
+    <bpmn:sequenceFlow id="Flow_10" sourceRef="ServiceTask_StartStreaming" targetRef="Gateway_MultipleFiles" />
+    <bpmn:sequenceFlow id="Flow_11_Single" name="Один файл" sourceRef="Gateway_MultipleFiles" targetRef="ServiceTask_PrepareStream" />
+    <bpmn:sequenceFlow id="Flow_12_Multiple" name="Несколько файлов" sourceRef="Gateway_MultipleFiles" targetRef="UserTask_SelectFile" />
+    <bpmn:sequenceFlow id="Flow_FileSelected" sourceRef="UserTask_SelectFile" targetRef="ServiceTask_StartStreaming" />
+    <bpmn:sequenceFlow id="Flow_13" sourceRef="ServiceTask_PrepareStream" targetRef="UserTask_VideoPlayback" />
+    <bpmn:sequenceFlow id="Flow_14" sourceRef="UserTask_VideoPlayback" targetRef="Gateway_PlaybackEnd" />
+    <bpmn:sequenceFlow id="Flow_ReturnToDetails" name="Вернуться к деталям" sourceRef="Gateway_PlaybackEnd" targetRef="Gateway_UserDecision" />
+    <bpmn:sequenceFlow id="Flow_BackToSearch" name="Новый поиск" sourceRef="Gateway_PlaybackEnd" targetRef="UserTask_SearchInput" />
+    <bpmn:sequenceFlow id="Flow_15_Exit" name="Выход" sourceRef="Gateway_PlaybackEnd" targetRef="EndEvent_1" />
+    
+    <!-- Error Flows -->
+    <bpmn:sequenceFlow id="Flow_Error1" sourceRef="BoundaryEvent_APIError" targetRef="UserTask_ErrorHandling" />
+    <bpmn:sequenceFlow id="Flow_Error2" sourceRef="BoundaryEvent_StreamError" targetRef="UserTask_ErrorHandling" />
+    <bpmn:sequenceFlow id="Flow_RetryOrExit" sourceRef="UserTask_ErrorHandling" targetRef="Gateway_RetryOrExit" />
+    <bpmn:sequenceFlow id="Flow_Retry" name="Повторить" sourceRef="Gateway_RetryOrExit" targetRef="UserTask_SearchInput" />
+    <bpmn:sequenceFlow id="Flow_ExitError" name="Выход" sourceRef="Gateway_RetryOrExit" targetRef="EndEvent_1" />
+    
+  </bpmn:process>
+  
+  <!-- Diagram Information -->
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="TorrentStreamerProcess">
+      
+      <!-- Start Event -->
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="125" y="145" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      
+      <!-- User Tasks -->
+      <bpmndi:BPMNShape id="UserTask_SearchInput_di" bpmnElement="UserTask_SearchInput">
+        <dc:Bounds x="240" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="UserTask_SelectTorrent_di" bpmnElement="UserTask_SelectTorrent">
+        <dc:Bounds x="640" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="UserTask_SelectFile_di" bpmnElement="UserTask_SelectFile">
+        <dc:Bounds x="1240" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="UserTask_VideoPlayback_di" bpmnElement="UserTask_VideoPlayback">
+        <dc:Bounds x="1440" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="UserTask_ErrorHandling_di" bpmnElement="UserTask_ErrorHandling">
+        <dc:Bounds x="640" y="300" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      
+      <!-- Service Tasks -->
+      <bpmndi:BPMNShape id="ServiceTask_APISearch_di" bpmnElement="ServiceTask_APISearch">
+        <dc:Bounds x="390" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="ServiceTask_ParseHTML_di" bpmnElement="ServiceTask_ParseHTML">
+        <dc:Bounds x="540" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="ServiceTask_FetchDetails_di" bpmnElement="ServiceTask_FetchDetails">
+        <dc:Bounds x="790" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="ServiceTask_DownloadTorrent_di" bpmnElement="ServiceTask_DownloadTorrent">
+        <dc:Bounds x="1040" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="ServiceTask_StartStreaming_di" bpmnElement="ServiceTask_StartStreaming">
+        <dc:Bounds x="1190" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="ServiceTask_PrepareStream_di" bpmnElement="ServiceTask_PrepareStream">
+        <dc:Bounds x="1340" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      
+      <!-- Gateways -->
+      <bpmndi:BPMNShape id="Gateway_UserDecision_di" bpmnElement="Gateway_UserDecision" isMarkerVisible="true">
+        <dc:Bounds x="940" y="95" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="925" y="65" width="80" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="Gateway_MultipleFiles_di" bpmnElement="Gateway_MultipleFiles" isMarkerVisible="true">
+        <dc:Bounds x="1265" y="95" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1245" y="65" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="Gateway_PlaybackEnd_di" bpmnElement="Gateway_PlaybackEnd" isMarkerVisible="true">
+        <dc:Bounds x="1590" y="95" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1570" y="65" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="Gateway_RetryOrExit_di" bpmnElement="Gateway_RetryOrExit" isMarkerVisible="true">
+        <dc:Bounds x="665" y="415" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="645" y="385" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      
+      <!-- End Event -->
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="1702" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1675" y="145" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      
+      <!-- Boundary Events -->
+      <bpmndi:BPMNShape id="BoundaryEvent_APIError_di" bpmnElement="BoundaryEvent_APIError">
+        <dc:Bounds x="422" y="142" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="395" y="185" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="BoundaryEvent_StreamError_di" bpmnElement="BoundaryEvent_StreamError">
+        <dc:Bounds x="1222" y="142" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1195" y="185" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+  
+</bpmn:definitions>
